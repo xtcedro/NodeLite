@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     phone VARCHAR(10) NOT NULL,                -- Phone number (10 digits only)
     email VARCHAR(100) NOT NULL,               -- Customer's email address
     appointment_date DATE NOT NULL,            -- Preferred appointment date
-	appointment_time TIME NULL,
+appointment_time TIME NULL,
     service VARCHAR(255) NOT NULL,             -- Type of service requested
     message TEXT,                              -- Additional details or notes
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp for record creation
