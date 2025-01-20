@@ -36,7 +36,6 @@ Thumbs.db
 /coverage/
 
 # NPM package files
-package-lock.json
 yarn.lock
 
 # Miscellaneous
@@ -48,5 +47,3 @@ yarn.lock
 # Custom
 /local_settings.json
 .secret/
-
-node_modules/
