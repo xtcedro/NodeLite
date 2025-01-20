@@ -48,3 +48,5 @@ yarn.lock
 # Custom
 /local_settings.json
 .secret/
+
+node_modules/
