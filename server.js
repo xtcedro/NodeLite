@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const appointmentRoutes = require('./routes/appointments');
+const userRoutes = require('./routes/users'); // Import user routes
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ app.use(express.static(path.join(__dirname, '../html/public')));
 
 // API Routes
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/users', userRoutes); // Add user routes for registration and login
 
 // Test route
 app.get('/api', (req, res) => {
