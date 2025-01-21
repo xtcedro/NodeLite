@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../../database/dbConnection'); // Adjust path based on your database connection file
+const db = require('../config/db.js'); // Database connection
 
 // Register a new user
 exports.registerUser = async (req, res) => {
