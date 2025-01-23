@@ -11,7 +11,14 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, '../html/public/pages/')));
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, '../html/public')));
+
+// Fallback to 'index.html' in 'public/pages/' for the root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../html/public/pages/index.html'));
+});
 
 // API Routes
 app.use('/api/appointments', appointmentRoutes);
