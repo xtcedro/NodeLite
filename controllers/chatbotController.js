@@ -1,16 +1,16 @@
-const { chatWithAI } = require('../services/openaiService');
+import { chatWithAI } from "../services/openaiService.js";
 
-exports.getChatResponse = async (req, res) => {
-    try {
-        const { message } = req.body;
-        if (!message) {
-            return res.status(400).json({ error: "Message is required!" });
-        }
+export async function handleChatbotRequest(req, res) {
+    const { message } = req.body;
 
-        const aiResponse = await chatWithAI(message);
-        res.json({ reply: aiResponse });
-    } catch (error) {
-        console.error("Chatbot Error:", error);
-        res.status(500).json({ error: "Failed to generate response" });
+    if (!message) {
+        return res.status(400).json({ error: "Message is required" });
     }
-};
+
+    try {
+        const botResponse = await chatWithAI(message);
+        res.json({ reply: botResponse });
+    } catch (error) {
+        res.status(500).json({ error: "Chatbot failed to respond" });
+    }
+}
