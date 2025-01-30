@@ -1,13 +1,13 @@
-import express from "express";
-import path from "path";
-import bodyParser from "body-parser";
-import cors from "cors";
-import appointmentRoutes from "./routes/appointments.js";
-import userRoutes from "./routes/users.js";
-import chatbotRoutes from "./routes/chatbot.js"; // Import chatbot routes
-import dotenv from "dotenv";
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+require("dotenv").config();
 
-dotenv.config();
+// Import API Routes
+const appointmentRoutes = require('./routes/appointments');
+const userRoutes = require('./routes/users');
+const chatbotRoutes = require('./routes/chatbot');  // ✅ Add chatbot route
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,26 +15,18 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, '../html/public')));
 
-// Serve static files
-app.use(express.static(path.join(__dirname, "../html/public")));
+// API Routes
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/chatbot', chatbotRoutes);  // ✅ Register chatbot API
 
-// Register API Routes
-app.use("/api/appointments", appointmentRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/chat", chatbotRoutes); // Register chatbot routes
-
-// Root route
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../html/public/pages/index.html"));
+// Fallback Route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../html/public/pages/index.html'));
 });
 
-// API Test Route
-app.get("/api", (req, res) => {
-    res.send("API is working!");
-});
-
-// Start the server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
