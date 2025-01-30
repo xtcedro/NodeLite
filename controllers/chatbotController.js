@@ -1,6 +1,6 @@
-import { chatWithAI } from "../services/openaiService.js";
+const { chatWithAI } = require("../services/openaiService");
 
-export async function handleChatbotRequest(req, res) {
+async function handleChatbotRequest(req, res) {
     const { message } = req.body;
 
     if (!message) {
@@ -14,3 +14,5 @@ export async function handleChatbotRequest(req, res) {
         res.status(500).json({ error: "Chatbot failed to respond" });
     }
 }
+
+module.exports = { handleChatbotRequest }; // ✅ Use CommonJS export
