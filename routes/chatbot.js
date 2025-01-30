@@ -1,22 +1,8 @@
-import express from "express";
-import { chatWithAI } from "../services/openaiService.js"; // Import the OpenAI service
-
+const express = require('express');
 const router = express.Router();
+const { getChatResponse } = require('../controllers/chatbotController');
 
-router.post("/chat", async (req, res) => {
-    const { message } = req.body;
+// Route for chatbot interaction
+router.post('/chat', getChatResponse);
 
-    if (!message) {
-        return res.status(400).json({ error: "Message is required" });
-    }
-
-    try {
-        const reply = await chatWithAI(message);
-        res.json({ reply });
-    } catch (error) {
-        console.error("Chatbot Error:", error);
-        res.status(500).json({ error: "Chatbot failed to respond" });
-    }
-});
-
-export default router;
+module.exports = router;
