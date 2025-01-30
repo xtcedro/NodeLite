@@ -8,7 +8,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 async function chatWithAI(userMessage) {
     try {
         const response = await openai.chat.completions.create({
-            model: "gpt-4",
+            model: "chatgpt-4o-latest",
             messages: [{ role: "user", content: userMessage }],
             temperature: 0.7,
         });
