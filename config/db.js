@@ -1,8 +1,10 @@
 import dotenv from "dotenv";
 import mysql from "mysql2/promise";
+import OpenAI from "openai";
 
 dotenv.config();
 
+// Database Connection Pool
 export const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -14,6 +16,18 @@ export const db = mysql.createPool({
 });
 
 // OpenAI Configuration
-export const openaiConfig = {
+export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-};
+});
+
+// Test the database connection
+(async () => {
+  try {
+    const connection = await db.getConnection();
+    console.log("✅ Database connected successfully!");
+    connection.release();
+  } catch (err) {
+    console.error("❌ Database connection failed:", err.message);
+    process.exit(1);
+  }
+})();
