@@ -1,8 +1,4 @@
-import OpenAI from "openai";
-import dotenv from "dotenv";
-
-dotenv.config();
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import { openai } from "../config/db.js"; // ✅ Import OpenAI from db.js
 
 export async function chatWithAI(userMessage) {
     try {
@@ -14,7 +10,7 @@ export async function chatWithAI(userMessage) {
 
         return response.choices[0].message.content;
     } catch (error) {
-        console.error("Error communicating with OpenAI:", error);
+        console.error("❌ Error communicating with OpenAI:", error);
         throw new Error("Failed to fetch response from OpenAI.");
     }
 }
