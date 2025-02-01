@@ -1,4 +1,4 @@
-import db from "../config/db.js"; // Import the database connection
+import { db } from "../config/db.js";
 
 // Submit an appointment
 export const submitAppointment = async (req, res) => {
