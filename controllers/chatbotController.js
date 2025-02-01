@@ -2,7 +2,10 @@ import { chatWithAI } from "../services/openaiService.js";
 
 export async function handleChatbotRequest(req, res) {
     const { message } = req.body;
-    if (!message) return res.status(400).json({ error: "Message is required" });
+
+    if (!message) {
+        return res.status(400).json({ error: "Message is required" });
+    }
 
     try {
         const botResponse = await chatWithAI(message);
