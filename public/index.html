@@ -3,25 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dominguez Tech Solutions Chatbot</title>
+    <title>Dominguez Tech Solutions Chatbot (Powered by Gemini AI)</title>
     <link rel="stylesheet" href="assets/css/style.css">
-	<script defer src="assets/js/chatbot.js"></script>
 </head>
 <body>
 
-    <header>
-        <h1>🤖 Dominguez Tech Solutions Chatbot</h1>
-    </header>
-
-    <div class="chat-container">
-        <div id="chat-box"></div>
-
-        <div class="input-container">
-            <input type="text" id="user-input" placeholder="Type your message..." />
-            <button onclick="sendMessage()">Send</button>
-        </div>
+    <div id="chat-container">
     </div>
 
+    <div id="input-area">
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-button">Send</button>
+    </div>
+
+    <script defer src="assets/js/chatbot.js"></script>
 
 </body>
 </html>
