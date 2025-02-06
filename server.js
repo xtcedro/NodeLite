@@ -1,23 +1,17 @@
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
+import chatRoutes from "./routes/chatRoutes.js";
 import dotenv from "dotenv";
-import { db } from "./config/db.js";  // ✅ Import db.js
-import chatbotRoutes from "./routes/chatbot.js";
-import appointmentRoutes from "./routes/appointments.js";
 
 dotenv.config();
+
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(bodyParser.json());
-app.use(cors());
-app.use(express.static("public"));
+app.use(express.json()); // Parse JSON requests
+app.use(cors()); // Enable cross-origin requests
 
-// API Routes
-app.use("/api/chatbot", chatbotRoutes);
-app.use("/api/appointments", appointmentRoutes);
+// Routes
+app.use("/api", chatRoutes);
 
-// Start Server
-app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
