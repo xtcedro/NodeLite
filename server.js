@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { db } from "./config/db.js";  // ✅ Import db.js
+import appointmentRoutes from "./routes/appointments.js";
 
 dotenv.config();
 
@@ -31,5 +33,7 @@ app.post("/api/chat", async (req, res) => {
     }
 });
 
+app.use("/api/appointments", appointmentRoutes);
 // Start Server
+
 app.listen(port, () => console.log(`🚀 Server running on http://localhost:${port}`));
