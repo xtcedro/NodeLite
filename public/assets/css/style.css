@@ -1,174 +1,76 @@
-/* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-/* Color Variables */
-:root {
-    --primary-color: #001F3F; /* Dark Blue */
-    --secondary-color: #FFD700; /* Gold */
-    --text-light: #ffffff;
-    --text-dark: #222222;
-    --background-light: #F8F9FA;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-}
-
-/* General Page Styling */
 body {
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    background: linear-gradient(to right, #001F3F, #002855);
-    color: var(--text-light);
-    margin: 0;
-    padding: 0;
+    font-family: sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: 100vh;
+    margin: 0;
+    background-color: #1a202c; /* Dark blue background */
+    color: #f0ad4e; /* Gold text color */
 }
 
-/* Header */
-header {
-    padding: 20px;
-    font-size: 2rem;
-    font-weight: 600;
-    text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.7);
-    background: var(--primary-color);
-    width: 100%;
-    box-shadow: 0px 4px 10px var(--shadow-color);
-}
-
-/* Chat Container */
-.chat-container {
-    width: 50%;
-    height: 70vh;
-    margin: 20px auto;
-    background: var(--background-light);
-    color: var(--text-dark);
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0px 6px 15px var(--shadow-color);
-    display: flex;
-    flex-direction: column;
-}
-
-/* Chat Box */
-#chat-box {
+#chat-container {
     flex-grow: 1;
-    overflow-y: auto;
-    border: 2px solid var(--primary-color);
-    padding: 15px;
-    text-align: left;
-    background: #ffffff;
+    overflow-y: scroll;
+    padding: 20px;
+    background-color: #2d3748; /* Slightly lighter dark blue for chat area */
+    border: none; /* Remove border */
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 12px;
     border-radius: 8px;
-    box-shadow: inset 0px 3px 10px var(--shadow-color);
-    scroll-behavior: smooth;
-}
-
-/* Chat Messages */
-.user-message, .bot-message {
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
     max-width: 80%;
-    word-wrap: break-word;
-    display: inline-block;
-    font-size: 1.1rem;
-    animation: fadeIn 0.3s ease-in-out;
+    clear: both;
 }
 
-/* User Message Styling */
 .user-message {
-    background: var(--secondary-color);
-    color: var(--primary-color);
-    align-self: flex-end;
+    background-color: #3b4151; /* Darker blue for user messages */
+    color: #f0ad4e;  /* Gold text for user messages */
     float: right;
-    clear: both;
-    box-shadow: 2px 2px 10px rgba(255, 215, 0, 0.4);
 }
 
-/* Bot Message Styling */
 .bot-message {
-    background: var(--primary-color);
-    color: var(--text-light);
-    align-self: flex-start;
+    background-color: #4a5568; /* Another shade of dark blue for bot messages */
+    color: #f0ad4e; /* Gold text for bot messages */
     float: left;
-    clear: both;
-    box-shadow: 2px 2px 10px var(--shadow-color);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Darker shadow */
 }
 
-/* Input Section */
-.input-container {
+.message-content {
+    white-space: pre-wrap;
+}
+
+#input-area {
     display: flex;
-    gap: 10px;
-    margin-top: 10px;
     padding: 10px;
+    background-color: #2d3748; /* Dark blue for input area */
+    border-top: none; /* Remove border */
 }
 
-input {
-    flex: 1;
-    padding: 12px;
-    border: 2px solid var(--secondary-color);
-    border-radius: 6px;
-    font-size: 1rem;
-    background: white;
-    color: var(--text-dark);
-    box-shadow: 0px 2px 5px var(--shadow-color);
-    transition: box-shadow 0.2s ease-in-out;
+#user-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #4a5568; /* Slightly lighter border */
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    background-color: #3b4151; /* Darker blue for input field background */
+    color: #f0ad4e; /* Gold text in input field */
 }
 
-input:focus {
-    box-shadow: 0px 0px 10px var(--secondary-color);
-}
-
-/* Send Button */
-button {
-    background: var(--secondary-color);
-    color: var(--primary-color);
-    font-size: 1rem;
-    padding: 12px;
+#send-button {
+    padding: 10px 20px;
+    background-color: #f0ad4e; /* Gold send button */
+    color: #2d3748; /* Dark blue text on button */
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0px 2px 5px var(--shadow-color);
+    margin-left: 10px;
 }
 
-button:hover {
-    background: #e6c300;
-    transform: scale(1.05);
+#send-button:hover {
+    background-color: #e69c2c; /* Slightly darker gold on hover */
+    color: #2d3748; /* Dark blue text on button */
 }
 
-/* Typing Animation */
-.typing {
-    font-style: italic;
-    color: var(--primary-color);
-    opacity: 0.8;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .chat-container {
-        width: 90%;
-        height: 75vh;
-    }
-
-    input {
-        font-size: 1rem;
-    }
-
-    button {
-        font-size: 1rem;
-    }
-}
