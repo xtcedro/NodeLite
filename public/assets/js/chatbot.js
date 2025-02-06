@@ -1,23 +1,32 @@
-        async function sendMessage() {
-            const userInput = document.getElementById("user-input").value;
-            if (!userInput) return;
+document.addEventListener("DOMContentLoaded", () => {
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-btn");
+    const chatBox = document.getElementById("chat-box");
 
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<p class="user-message"><b>You:</b> ${userInput}</p>`;
+    sendButton.addEventListener("click", sendMessage);
+    userInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") sendMessage();
+    });
 
-            document.getElementById("user-input").value = ""; // Clear input
+    async function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
 
-            try {
-                const response = await fetch("/api/chat", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: userInput }),
-                });
+        chatBox.innerHTML += `<p class="user-message"><b>You:</b> ${message}</p>`;
+        userInput.value = "";
 
-                const data = await response.json();
-                chatBox.innerHTML += `<p class="bot-message"><b>Bot:</b> ${data.reply}</p>`;
-                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
-            } catch (error) {
-                chatBox.innerHTML += `<p class="error-message"><b>Error:</b> AI service is unavailable.</p>`;
-            }
+        try {
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message }),
+            });
+
+            const data = await response.json();
+            chatBox.innerHTML += `<p class="bot-message"><b>Bot:</b> ${data.reply}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+        } catch (error) {
+            chatBox.innerHTML += `<p class="error-message"><b>Error:</b> AI service is unavailable.</p>`;
         }
+    }
+});
