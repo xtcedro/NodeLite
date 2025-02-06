@@ -22,14 +22,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp for record creation
 );
 
--- Create the users table for authentication
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,                     -- Unique identifier for each user
-    name VARCHAR(255) NOT NULL,                -- Full name of the user
-    email VARCHAR(255) UNIQUE NOT NULL,        -- User's email address
-    password VARCHAR(255) NOT NULL,            -- User's hashed password
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp for record creation
-);
+
 
 -- Optional: Insert sample data for testing
 INSERT INTO appointments (name, phone, email, appointment_date, service, message)
