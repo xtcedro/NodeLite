@@ -8,12 +8,39 @@ body {
     color: #f0ad4e; /* Gold text color */
 }
 
+#hero {
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+#hero h1 {
+    font-size: 2.5em;
+    color: #f0ad4e;
+    text-shadow: 0 0 10px #f0ad4e, 0 0 20px #f0ad4e, 0 0 30px #f0ad4e;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+#hero p {
+    font-size: 1.2em;
+    color: #f0ad4e;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #f0ad4e, 0 0 10px #f0ad4e, 0 0 15px #f0ad4e;
+    }
+    to {
+        text-shadow: 0 0 10px #f0ad4e, 0 0 20px #f0ad4e, 0 0 30px #f0ad4e;
+    }
+}
+
 #chat-container {
     flex-grow: 1;
     overflow-y: scroll;
     padding: 20px;
     background-color: #2d3748; /* Slightly lighter dark blue for chat area */
-    border: none; /* Remove border */
+    border: none;
 }
 
 .message {
@@ -26,15 +53,15 @@ body {
 
 .user-message {
     background-color: #3b4151; /* Darker blue for user messages */
-    color: #f0ad4e;  /* Gold text for user messages */
+    color: #f0ad4e;
     float: right;
 }
 
 .bot-message {
     background-color: #4a5568; /* Another shade of dark blue for bot messages */
-    color: #f0ad4e; /* Gold text for bot messages */
+    color: #f0ad4e;
     float: left;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Darker shadow */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
 
 .message-content {
@@ -45,7 +72,7 @@ body {
     display: flex;
     padding: 10px;
     background-color: #2d3748; /* Dark blue for input area */
-    border-top: none; /* Remove border */
+    border-top: none;
 }
 
 #user-input {
@@ -73,4 +100,3 @@ body {
     background-color: #e69c2c; /* Slightly darker gold on hover */
     color: #2d3748; /* Dark blue text on button */
 }
-
