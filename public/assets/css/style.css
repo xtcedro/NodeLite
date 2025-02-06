@@ -40,9 +40,6 @@ header {
     padding: 8px;
     margin: 5px 0;
     border-radius: 6px;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .user-message {
@@ -53,13 +50,6 @@ header {
 .bot-message {
     background: #8B0000;
     color: white;
-}
-
-/* Typing Animation */
-.typing-animation {
-    opacity: 1;
-    font-style: italic;
-    animation: blink 1s infinite;
 }
 
 /* Input Section */
@@ -89,25 +79,6 @@ button {
 
 button:hover {
     background: #e6c300;
-}
-
-/* Fade-in Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Blinking Typing Effect */
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
 }
 
 /* Responsive Design */
