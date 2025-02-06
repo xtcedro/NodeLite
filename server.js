@@ -11,7 +11,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static("public")); // Serve frontend files
+app.use(express.static("public/pages/home/index.html")); // Serve frontend files
 
 // AI Chat Route
 app.post("/api/chat", async (req, res) => {
