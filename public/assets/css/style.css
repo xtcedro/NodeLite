@@ -55,6 +55,13 @@ header {
     color: white;
 }
 
+/* Typing Animation */
+.typing-animation {
+    opacity: 1;
+    font-style: italic;
+    animation: blink 1s infinite;
+}
+
 /* Input Section */
 .input-container {
     display: flex;
@@ -82,13 +89,6 @@ button {
 
 button:hover {
     background: #e6c300;
-}
-
-/* Typing Animation */
-.typing-animation {
-    opacity: 1;
-    font-style: italic;
-    animation: blink 1s infinite;
 }
 
 /* Fade-in Animation */
