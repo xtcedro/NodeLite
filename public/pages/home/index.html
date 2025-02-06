@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>🤖 Chatbot</h1>
+    <div class="chat-container">
+        <div id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            if (!userInput) return;
+
+            // Append user message to chat
+            document.getElementById("chat-box").innerHTML += `<p><b>You:</b> ${userInput}</p>`;
+
+            // Send request to Node.js backend
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: userInput })
+            });
+
+            const data = await response.json();
+            document.getElementById("chat-box").innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
+
+            // Clear input
+            document.getElementById("user-input").value = "";
+        }
+    </script>
+
+</body>
+</html>
