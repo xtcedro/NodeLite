@@ -10,22 +10,24 @@ export const chatController = async (req, res) => {
         // Select AI model
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-        // Generate response with streaming enabled
+        // Enable streaming response
         const streamingResponse = await model.generateContentStream(message);
 
-        // Set response headers for streaming
+        // Set SSE headers
         res.setHeader("Content-Type", "text/event-stream");
         res.setHeader("Cache-Control", "no-cache");
         res.setHeader("Connection", "keep-alive");
 
         // Stream response as chunks
         for await (const chunk of streamingResponse.stream) {
-            res.write(`data: ${JSON.stringify({ text: chunk.text() })}\n\n`);
+            res.write(`data: ${JSON.stringify({ text: chunk.text })}\n\n`);
         }
 
+        res.write("data: [DONE]\n\n"); // Signal completion
         res.end(); // End stream when complete
     } catch (error) {
         console.error("Streaming AI Error:", error);
-        res.status(500).json({ error: "AI streaming failed" });
+        res.write(`data: ${JSON.stringify({ error: "AI streaming failed" })}\n\n`);
+        res.end();
     }
 };
