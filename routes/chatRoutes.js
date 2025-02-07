@@ -1,8 +1,8 @@
 import express from "express";
-import { chatWithGemini } from "../controllers/chatController.js";
+import { chatController } from "../controllers/chatController.js"; // ✅ Use the correct export name
 
 const router = express.Router();
 
-router.post("/chat", chatWithGemini);
+router.post("/", chatController); // ✅ Use the correct function
 
 export default router;
