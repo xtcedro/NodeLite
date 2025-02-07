@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import mysql from "mysql2/promise";
-import OpenAI from "openai";
 
 dotenv.config();
 
@@ -13,11 +12,6 @@ export const db = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-});
-
-// OpenAI Configuration
-export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Test the database connection
