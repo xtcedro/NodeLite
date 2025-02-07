@@ -4,29 +4,29 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const chatController = async (req, res) => {
     try {
-        const { message } = req.body;
-        if (!message) return res.status(400).json({ error: "Message is required" });
+        const { message } = req.body || {}; // Handle empty requests
 
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        const streamingResponse = await model.generateContentStream(message);
+        // System prompt: AI identity and behavior
+        const systemPrompt = `
+        You are the Dominguez Tech Solutions AI Assistant, an expert in technology, AI, and business automation.
+        Your goal is to help users with IT solutions, web development, and AI applications. Stay professional, concise, and helpful.
+        `;
 
-        res.setHeader("Content-Type", "text/event-stream");
-        res.setHeader("Cache-Control", "no-cache");
-        res.setHeader("Connection", "keep-alive");
-
-        // Process streamed chunks
-        for await (const chunk of streamingResponse.stream) {
-            const content = chunk.candidates?.[0]?.content?.parts?.[0]?.text || "";
-            if (content) {
-                res.write(`data: ${JSON.stringify({ text: content })}\n\n`);
-            }
+        // If no message is sent (first interaction), return an introduction
+        if (!message) {
+            return res.json({
+                reply: "Hello! I'm the **Dominguez Tech Solutions AI Assistant 🤖**. I'm here to assist you with AI, web development, and business automation. How can I help you today?"
+            });
         }
 
-        res.write("data: [DONE]\n\n"); // Signal completion
-        res.end();
+        // Process user messages
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const response = await model.generateContent([systemPrompt, message]);
+        const botReply = response.response.text();
+
+        res.json({ reply: botReply });
     } catch (error) {
-        console.error("Streaming AI Error:", error);
-        res.write(`data: ${JSON.stringify({ error: "AI streaming failed" })}\n\n`);
-        res.end();
+        console.error("AI Error:", error);
+        res.status(500).json({ error: "AI processing failed" });
     }
 };
