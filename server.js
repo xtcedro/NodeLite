@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { db } from "./config/db.js";  // ✅ Database connection
 import appointmentRoutes from "./routes/appointments.js";
-import chatRoutes from "./routes/chat.js"; // ✅ AI Chatbot routes
+import chatRoutes from "./routes/chatRoutes.js"; // ✅ AI Chatbot routes
 
 dotenv.config();
 
