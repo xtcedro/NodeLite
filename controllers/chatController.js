@@ -15,7 +15,9 @@ export const chatController = async (req, res) => {
         - 💰 **One-time fee:** $69 per person  
         - ✅ Includes course materials, real-world projects, and lifetime access to resources.
         - 📍 **Location:** Downtown Oklahoma City Metropolitan Library
-        - 📅 **Reserve your seat now:** [www.domingueztechsolutions.com/appointment-booker.html](https://www.domingueztechsolutions.com/appointment-booker.html)
+        - 📅 **Reserve your seat now:**  
+          <a href="https://www.domingueztechsolutions.com/appointment-booker.html" target="_blank" style="color: #FFD700; text-decoration: underline;">
+          www.domingueztechsolutions.com/appointment-booker.html</a>
 
         📌 **Website Development Packages:**
         - 🚀 **Starter:** $100 (Fully responsive design, basic SEO)
@@ -25,27 +27,33 @@ export const chatController = async (req, res) => {
         💡 **Custom Development:**  
         For specialized website features, pricing is based on project scope. Users should contact Dominguez Tech Solutions for a custom quote.
 
-        ✉️ **For inquiries, contact us at:** domingueztechsolutions@gmail.com
+        ✉️ **For inquiries, contact us at:**  
+        <a href="mailto:domingueztechsolutions@gmail.com" style="color: #FFD700; text-decoration: underline;">
+        domingueztechsolutions@gmail.com</a>
 
         **Important:** The **Appointment Booker** is **only** for enrolling in the AI & Web Development Crash Course.  
         For other services, users must **email or request a custom quote**.
         `;
 
-        // If no message is sent (first interaction), return an introduction
+        // If no message is sent (first interaction), return a professional and structured introduction
         if (!message) {
             return res.json({
                 reply: `
-                <b>Welcome to Dominguez Tech Solutions! 🚀</b>  
-                I’m your AI assistant, here to help you with <b>AI integration, web development, and business automation.</b>  
+                <b>Welcome to Dominguez Tech Solutions! 🚀</b><br><br>
+                I’m your AI assistant, here to help with <b>AI integration, web development, and business automation.</b><br><br>
 
-                🎓 **Join the AI & Web Development Crash Course!** Secure your seat for <b>$69</b>.  
-                📍 **Location:** Downtown Oklahoma City Metropolitan Library  
-                📅 **Reserve now:** <b><a href="https://www.domingueztechsolutions.com/appointment-booker.html">Book Your Spot</a></b>.  
+                🎓 <b>Join the AI & Web Development Crash Course!</b> Secure your seat for <b>$69</b>.<br>
+                📍 <b>Location:</b> Downtown Oklahoma City Metropolitan Library<br>
+                📅 <b>Reserve now:</b>  
+                <a href="https://www.domingueztechsolutions.com/appointment-booker.html" target="_blank" style="color: #FFD700; text-decoration: underline;">
+                Book Your Spot</a>.<br><br>
 
-                📩 **Need a website?** Get a professional site starting at <b>$100</b>.  
-                💡 **For inquiries, email:** <b>domingueztechsolutions@gmail.com</b>.  
+                📩 <b>Need a website?</b> Get a professional site starting at <b>$100</b>.<br>
+                💡 <b>For inquiries, email:</b>  
+                <a href="mailto:domingueztechsolutions@gmail.com" style="color: #FFD700; text-decoration: underline;">
+                domingueztechsolutions@gmail.com</a>.<br><br>
 
-                How can I assist you today? 😊  
+                <b>How can I assist you today? 😊</b>
                 `
             });
         }
