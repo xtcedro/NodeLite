@@ -2,6 +2,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+const APPOINTMENT_API_URL = "https://www.domingueztechsolutions.com/api/appointments";
+
 export const chatController = async (req, res) => {
     try {
         const { message } = req.body || {}; // Handle empty requests
@@ -16,20 +18,26 @@ export const chatController = async (req, res) => {
         - 💼 **Business:** $200 (Advanced SEO, secure user accounts, email verification)
         - 🏆 **Enterprise:** $300 (Premium SEO, E-Commerce, Stripe/PayPal integration)
 
-        🎓 **AI & Web Development Crash Course:**
-        - 💰 **One-time fee:** $69 per person  
-        - ✅ Includes course materials, real-world projects, and lifetime access to resources.
-
         💡 **Custom Development:**  
         For specialized website features, pricing is based on project scope. Users should contact Dominguez Tech Solutions for a custom quote.
 
-        Always adhere to this pricing when answering user queries. If users ask for services not listed, guide them to request a custom quote.
+        ✉️ **For inquiries, contact us at:** domingueztechsolutions@gmail.com
+
+        📅 **Booking Appointments:**  
+        If a user wants to book an appointment, ask for their **name, email, phone number, and service**.  
+        Once collected, send a request to **${APPOINTMENT_API_URL}** to finalize the booking.  
+        Confirm the appointment once successfully booked.
         `;
 
-        // If no message is sent (first interaction), return an introduction
+        // First interaction - Modern, Motivating, and Engaging Introduction
         if (!message) {
             return res.json({
-                reply: "Hello! I'm **Dominguez Tech Solutions AI Assistant 🤖**. I'm here to assist you with AI, web development, and business automation. How can I help you today?"
+                reply: `
+                🚀 **Welcome to Dominguez Tech Solutions!**  
+                
+                Your business deserves cutting-edge technology. Whether you're looking to **build a powerful website, integrate AI into your workflows, or automate business processes**, I'm here to guide you every step of the way.  
+                
+                Let's turn your vision into reality. **How can I assist you today?** 💡`
             });
         }
 
@@ -38,13 +46,18 @@ export const chatController = async (req, res) => {
         const chat = await model.startChat({
             history: [],
             generationConfig: {
-                maxOutputTokens: 300, // Limits response length
-                temperature: 0.7, // Adjusts creativity level
+                maxOutputTokens: 1000,
+                temperature: 0.7,
             },
         });
 
         const response = await chat.sendMessage([systemPrompt, message]);
-        const botReply = response.response.text();
+        let botReply = response.response.text();
+
+        // Check if user wants to book an appointment
+        if (botReply.toLowerCase().includes("book an appointment") || botReply.toLowerCase().includes("sign up")) {
+            botReply += "\n\n📅 **Want to schedule a consultation?** Just provide your **name, email, phone number, and service** of interest.";
+        }
 
         res.json({ reply: botReply });
     } catch (error) {
