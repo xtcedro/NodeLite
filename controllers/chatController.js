@@ -2,8 +2,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-const APPOINTMENT_API_URL = "https://www.domingueztechsolutions.com/api/appointments";
-
 export const chatController = async (req, res) => {
     try {
         const { message } = req.body || {}; // Handle empty requests
@@ -11,7 +9,13 @@ export const chatController = async (req, res) => {
         // System prompt: AI identity and behavior
         const systemPrompt = `
         You are Dominguez Tech Solutions AI Assistant, an expert in AI, web development, and business automation.
-        Stay professional, concise, and helpful. Ensure all responses reflect the following accurate pricing:
+        Stay professional, concise, and helpful. Ensure all responses reflect the following **accurate pricing**:
+
+        🎓 **AI & Web Development Crash Course:**
+        - 💰 **One-time fee:** $69 per person  
+        - ✅ Includes course materials, real-world projects, and lifetime access to resources.
+        - 📍 **Location:** Downtown Oklahoma City Metropolitan Library
+        - 📅 **Reserve your seat now:** [www.domingueztechsolutions.com/appointment-booker.html](https://www.domingueztechsolutions.com/appointment-booker.html)
 
         📌 **Website Development Packages:**
         - 🚀 **Starter:** $100 (Fully responsive design, basic SEO)
@@ -23,21 +27,26 @@ export const chatController = async (req, res) => {
 
         ✉️ **For inquiries, contact us at:** domingueztechsolutions@gmail.com
 
-        📅 **Booking Appointments:**  
-        If a user wants to book an appointment, ask for their **name, email, phone number, and service**.  
-        Once collected, send a request to **${APPOINTMENT_API_URL}** to finalize the booking.  
-        Confirm the appointment once successfully booked.
+        **Important:** The **Appointment Booker** is **only** for enrolling in the AI & Web Development Crash Course.  
+        For other services, users must **email or request a custom quote**.
         `;
 
-        // First interaction - Modern, Motivating, and Engaging Introduction
+        // If no message is sent (first interaction), return an introduction
         if (!message) {
             return res.json({
                 reply: `
-                🚀 **Welcome to Dominguez Tech Solutions!**  
-                
-                Your business deserves cutting-edge technology. Whether you're looking to **build a powerful website, integrate AI into your workflows, or automate business processes**, I'm here to guide you every step of the way.  
-                
-                Let's turn your vision into reality. **How can I assist you today?** 💡`
+                <b>Welcome to Dominguez Tech Solutions! 🚀</b>  
+                I’m your AI assistant, here to help you with <b>AI integration, web development, and business automation.</b>  
+
+                🎓 **Join the AI & Web Development Crash Course!** Secure your seat for <b>$69</b>.  
+                📍 **Location:** Downtown Oklahoma City Metropolitan Library  
+                📅 **Reserve now:** <b><a href="https://www.domingueztechsolutions.com/appointment-booker.html">Book Your Spot</a></b>.  
+
+                📩 **Need a website?** Get a professional site starting at <b>$100</b>.  
+                💡 **For inquiries, email:** <b>domingueztechsolutions@gmail.com</b>.  
+
+                How can I assist you today? 😊  
+                `
             });
         }
 
@@ -46,18 +55,13 @@ export const chatController = async (req, res) => {
         const chat = await model.startChat({
             history: [],
             generationConfig: {
-                maxOutputTokens: 1000,
-                temperature: 0.7,
+                maxOutputTokens: 300, // Limits response length
+                temperature: 0.7, // Adjusts creativity level
             },
         });
 
         const response = await chat.sendMessage([systemPrompt, message]);
-        let botReply = response.response.text();
-
-        // Check if user wants to book an appointment
-        if (botReply.toLowerCase().includes("book an appointment") || botReply.toLowerCase().includes("sign up")) {
-            botReply += "\n\n📅 **Want to schedule a consultation?** Just provide your **name, email, phone number, and service** of interest.";
-        }
+        const botReply = response.response.text();
 
         res.json({ reply: botReply });
     } catch (error) {
