@@ -33,4 +33,4 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(reactBuildPath, "index.html"));
 });
 
-app.listen(port, () => console.log(`🚀 Server running on http://localhost:${port}`));
+app.listen(port, () => console.log(`✅ Server running on http://localhost:${port}`));
